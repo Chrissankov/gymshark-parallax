@@ -25,11 +25,44 @@ body {
   transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
+#gymshark-logo,
+#gymshark-text {
+  position: absolute;
+  z-index: 10;
+  animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+  transition: transform 0.3s ease;
+}
+
+/* Positioning */
+#gymshark-logo {
+  width: 120px;
+  left: 6%;
+  top: 2%;
+}
+
+#gymshark-text {
+  width: 160px;
+  right: 9%;
+  top: 3%;
+}
+
+/* Floating subtle bounce */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 /* Shark */
 #shark {
   top: 100px; /* Set in px not % */
   left: 40%;
-  width: 300px;
+  width: 268px;
   z-index: 2;
   animation: swim 2s ease-in-out infinite;
 }
@@ -131,21 +164,9 @@ body {
   transform: translate(0, 0); /* Default before scroll */
 }
 
-#plate {
-  width: 110px;
-}
-
-#kettlebell {
-  width: 80px;
-}
-
-#short {
-  width: 140px;
-}
-
 /* Top-left start (left icons) */
 #dumbbell {
-  left: 10%;
+  left: 9%;
   top: 20%;
 }
 #tshirt {
@@ -153,17 +174,20 @@ body {
   top: 30%;
 }
 #kettlebell {
-  left: 10%;
+  width: 70px;
+  left: 9%;
   top: 40%;
 }
 
 /* Top-right start (right icons) */
 #plate {
-  left: 10%;
+  width: 110px;
+  left: 7.5%;
   top: 60%;
 }
 #short {
-  right: 10%;
+  width: 140px;
+  right: 8%;
   top: 50%;
 }
 #skirt {
@@ -178,20 +202,26 @@ body {
 
 #nike {
   width: 100px;
-  top: 30%;
-  left: 48%;
+  top: 32%;
+  left: 25%;
 }
 
 #alo {
   width: 90px;
-  top: 50%;
-  left: 48%;
+  top: 42%;
+  right: 25%;
 }
 
 #under-armour {
-  width: 140px;
-  top: 70%;
-  left: 46%;
+  width: 150px;
+  top: 51%;
+  left: 23%;
+}
+
+#adidas {
+  width: 100px;
+  top: 62%;
+  right: 25%;
 }
 
 .blood-droplet {
