@@ -29,7 +29,7 @@ body {
 #shark {
   top: 100px; /* Set in px not % */
   left: 40%;
-  width: 320px;
+  width: 300px;
   z-index: 2;
   animation: swim 2s ease-in-out infinite;
 }
@@ -148,7 +148,7 @@ body {
   left: 10%;
   top: 20%;
 }
-#plate {
+#tshirt {
   right: 10%;
   top: 30%;
 }
@@ -158,15 +158,61 @@ body {
 }
 
 /* Top-right start (right icons) */
-#tshirt {
-  right: 10%;
-  top: 50%;
-}
-#short {
+#plate {
   left: 10%;
   top: 60%;
+}
+#short {
+  right: 10%;
+  top: 50%;
 }
 #skirt {
   right: 10%;
   top: 70%;
+}
+
+.competitor-logo {
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#nike {
+  width: 100px;
+  top: 30%;
+  left: 48%;
+}
+
+#alo {
+  width: 90px;
+  top: 50%;
+  left: 48%;
+}
+
+#under-armour {
+  width: 140px;
+  top: 70%;
+  left: 46%;
+}
+
+.blood-droplet {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: red;
+  border-radius: 50%;
+  opacity: 0;
+  animation: splash-drop 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Reuse splash-drop animation you have */
+@keyframes splash-drop {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: var(--move);
+    opacity: 0;
+  }
 }

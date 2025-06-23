@@ -2,78 +2,129 @@ window.addEventListener("DOMContentLoaded", () => {
   const shark = document.getElementById("shark");
   const waves = document.getElementById("waves");
   const dropletsContainer = document.querySelector(".splash-droplets");
+  const competitors = document.querySelectorAll(".competitor-logo");
 
-  let splashTriggered = false;
+  let wasInBeachZone = false;
+  let eaten = new Set();
 
   const items = [
     { el: document.getElementById("dumbbell"), from: "left" },
-    { el: document.getElementById("plate"), from: "right" },
-    { el: document.getElementById("kettlebell"), from: "left" },
     { el: document.getElementById("tshirt"), from: "right" },
-    { el: document.getElementById("short"), from: "left" },
+    { el: document.getElementById("kettlebell"), from: "left" },
+    { el: document.getElementById("short"), from: "right" },
+    { el: document.getElementById("plate"), from: "left" },
     { el: document.getElementById("skirt"), from: "right" },
   ];
 
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
 
-    // Move shark down
+    // Move shark down with scroll
     shark.style.top = 100 + scrollY * 1.3 + "px";
 
-    // Animate icons diagonally in
-    items.forEach((item, index) => {
-      const threshold = 50 + index * 100;
+    // Animate items
+    items.forEach(({ el, from }, i) => {
+      const threshold = 50 + i * 100;
       if (scrollY > threshold) {
-        item.el.style.opacity = "1";
-        item.el.style.transform = "translate(0, 0)";
+        el.style.opacity = "1";
+        el.style.transform = "translate(0, 0)";
       } else {
-        item.el.style.opacity = "0";
-        // Diagonal fly-in
-        item.el.style.transform =
-          item.from === "left"
-            ? "translate(-100px, -100px)"
-            : "translate(100px, -100px)";
+        const x = from === "left" ? -100 : 100;
+        el.style.opacity = "0";
+        el.style.transform = `translate(${x}px, -100px)`;
       }
     });
 
-    // Splash detection
-    // Splash detection
+    // Splash logic
     const sharkRect = shark.getBoundingClientRect();
     const wavesRect = waves.getBoundingClientRect();
+    const isInBeachZone = sharkRect.bottom >= wavesRect.top + 100;
 
-    if (sharkRect.bottom >= wavesRect.top + 100 && !splashTriggered) {
-      splashTriggered = true;
-
-      waves.classList.add("splash");
-      createSplashDroplets();
-
-      // Clear droplets after animation
-      setTimeout(() => {
-        waves.classList.remove("splash");
-        dropletsContainer.innerHTML = "";
-        splashTriggered = false;
-      }, 800);
+    if (isInBeachZone !== wasInBeachZone) {
+      triggerSplash();
+      wasInBeachZone = isInBeachZone;
     }
+
+    // Collision & respawn logic
+    competitors.forEach((logo) => {
+      const logoRect = logo.getBoundingClientRect();
+      const sharkRect = shark.getBoundingClientRect();
+
+      // Collision check
+      const overlap = !(
+        sharkRect.right < logoRect.left ||
+        sharkRect.left > logoRect.right ||
+        sharkRect.bottom < logoRect.top ||
+        sharkRect.top > logoRect.bottom
+      );
+
+      const logoTop = logo.getBoundingClientRect().top + window.scrollY;
+
+      // 🧠 Check if logo is below shark
+      if (scrollY * 1.3 + 100 > logoTop - window.innerHeight / 2) {
+        if (overlap && !eaten.has(logo)) {
+          eaten.add(logo);
+          logo.style.opacity = "0";
+          logo.style.pointerEvents = "none";
+          triggerBloodSplash(
+            logoRect.left + logoRect.width / 2,
+            logoRect.top + logoRect.height / 2
+          );
+        }
+      }
+
+      // 🔄 Respawn if user scrolls back up above the logo
+      if (scrollY * 1.3 + 100 < logoTop - 150) {
+        if (eaten.has(logo)) {
+          eaten.delete(logo);
+          logo.style.opacity = "1";
+          logo.style.pointerEvents = "auto";
+        }
+      }
+    });
   });
 
-  // 💧 Create water splash droplets
-  function createSplashDroplets() {
-    // Clear any existing ones
-    dropletsContainer.innerHTML = ""; // Clear old ones
+  function triggerSplash() {
+    waves.classList.add("splash");
+    createSplashDroplets("black");
 
-    const count = 8; // number of droplets
+    setTimeout(() => {
+      waves.classList.remove("splash");
+      dropletsContainer.innerHTML = "";
+    }, 2000);
+  }
 
-    for (let i = 0; i < count; i++) {
+  function triggerBloodSplash(x, y) {
+    for (let i = 0; i < 10; i++) {
       const drop = document.createElement("div");
       drop.classList.add("splash-droplet");
+      drop.style.background = "red";
 
-      // Random direction (left/right) and height
-      const x = (Math.random() - 0.5) * 120; // -60 to +60px
-      const y = -50 - Math.random() * 80; // -50 to -130px
+      const containerRect = dropletsContainer.getBoundingClientRect();
+      drop.style.left = `${x - containerRect.left}px`;
+      drop.style.top = `${y - containerRect.top}px`;
 
-      // Use CSS variable for animation
+      const moveX = (Math.random() - 0.5) * 100;
+      const moveY = -Math.random() * 80;
+      drop.style.setProperty("--move", `translate(${moveX}px, ${moveY}px)`);
+
+      dropletsContainer.appendChild(drop);
+
+      drop.addEventListener("animationend", () => {
+        drop.remove();
+      });
+    }
+  }
+
+  function createSplashDroplets(color = "black") {
+    dropletsContainer.innerHTML = "";
+    for (let i = 0; i < 8; i++) {
+      const drop = document.createElement("div");
+      drop.classList.add("splash-droplet");
+      drop.style.background = color;
+      const x = (Math.random() - 0.5) * 300;
+      const y = -50 - Math.random() * 200;
       drop.style.setProperty("--move", `translate(${x}px, ${y}px)`);
-
       dropletsContainer.appendChild(drop);
     }
   }
