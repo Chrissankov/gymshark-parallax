@@ -57,6 +57,8 @@ window.addEventListener("DOMContentLoaded", () => {
     { el: document.getElementById("skirt"), from: "right" },
   ];
 
+  window.dispatchEvent(new Event("scroll"));
+
   // ADD SCROLL EVENT LISTENER
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY; // Get the vertical scroll position in pixels
