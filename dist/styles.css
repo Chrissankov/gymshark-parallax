@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background-color: #fdfdfd;
+  background-color: white;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -218,7 +218,7 @@ body {
 
 #nike {
   width: 100px;
-  top: 30%;
+  top: 32%;
   left: 25%;
 }
 

@@ -171,7 +171,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
 
       // Respawn if user scrolls back up above the logo
-      if (!overlap && scrollY < logoRect.top - 200) {
+      if (!overlap && scrollY + 100 < logoRect.top) {
         if (eaten.has(logo)) {
           console.log("♻️ Respawning logo:", logo.id);
           triggerBloodSplash(
