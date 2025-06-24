@@ -7,6 +7,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background-color: white;
   min-height: 100vh;
@@ -25,6 +29,7 @@ body {
   transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
+/* ================= LOGO & TEXT ================= */
 #gymshark-logo,
 #gymshark-text {
   position: absolute;
@@ -34,7 +39,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* Positioning */
 #gymshark-logo {
   width: 120px;
   left: 6%;
@@ -47,7 +51,6 @@ body {
   top: 3%;
 }
 
-/* Floating subtle bounce */
 @keyframes float {
   0%,
   100% {
@@ -58,17 +61,15 @@ body {
   }
 }
 
-/* Shark */
+/* ================= SHARK ================= */
 #shark {
-  top: 100px; /* Set in px not % */
+  top: 100px;
   left: 40%;
   width: 268px;
   z-index: 2;
   animation: swim 2s ease-in-out infinite;
 }
 
-/* Simulate tail wag movement */
-/* Swim animation: wag tail + sway left and right */
 @keyframes swim {
   0% {
     transform: translateX(0) rotate(-90deg) rotateZ(2deg);
@@ -87,7 +88,7 @@ body {
   }
 }
 
-/* Waves */
+/* ================= WAVES ================= */
 #waves {
   bottom: 0;
   left: 0;
@@ -119,6 +120,7 @@ body {
   }
 }
 
+/* ================= SPLASH DROPLETS ================= */
 .splash-droplets {
   position: absolute;
   bottom: 20%;
@@ -134,13 +136,11 @@ body {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #000;
   border-radius: 50%;
   opacity: 0;
   animation: splash-drop 0.8s ease-out forwards;
 }
 
-/* Reusable splash animation (direction/offset handled via JS) */
 @keyframes splash-drop {
   0% {
     transform: translate(0, 0);
@@ -152,50 +152,66 @@ body {
   }
 }
 
-/* All icons start invisible and far top-left/right */
+.blood-droplet {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: red;
+  border-radius: 50%;
+  opacity: 0;
+  animation: splash-drop 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ================= ICONS ================= */
 #dumbbell,
 #tshirt,
 #plate,
 #short,
 #kettlebell,
 #skirt {
+  position: absolute;
   width: 100px;
   opacity: 0;
-  transform: translate(0, 0); /* Default before scroll */
+  transform: translate(0, 0);
 }
 
-/* Top-left start (left icons) */
 #dumbbell {
   left: 9%;
   top: 20%;
 }
+
 #tshirt {
   right: 10%;
   top: 30%;
 }
+
 #kettlebell {
   width: 70px;
   left: 9%;
   top: 40%;
 }
 
-/* Top-right start (right icons) */
 #plate {
   width: 110px;
   left: 7.5%;
   top: 60%;
 }
+
 #short {
   width: 140px;
   right: 8%;
   top: 50%;
 }
+
 #skirt {
   right: 10%;
   top: 70%;
 }
 
+/* ================= COMPETITOR LOGOS ================= */
 .competitor-logo {
+  position: absolute;
   opacity: 1;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -224,25 +240,315 @@ body {
   right: 25%;
 }
 
-.blood-droplet {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: red;
-  border-radius: 50%;
-  opacity: 0;
-  animation: splash-drop 0.8s ease-out forwards;
-  pointer-events: none;
+/* ===================== MEDIA QUERIES ===================== */
+
+/* Small (phones) */
+@media (max-width: 476px) {
+  html {
+    font-size: 14px;
+  }
+
+  .parallax {
+    height: 200vh;
+  }
+
+  #gymshark-logo {
+    width: 60px;
+    top: 2%;
+  }
+
+  #gymshark-text {
+    width: 80px;
+    top: 2.5%;
+  }
+
+  #shark {
+    width: 150px;
+    left: 50%;
+  }
+
+  #dumbbell,
+  #tshirt,
+  #plate,
+  #short,
+  #kettlebell,
+  #skirt,
+  #nike,
+  #alo,
+  #under-armour,
+  #adidas {
+    width: 40px !important;
+  }
+
+  #kettlebell {
+    width: 30px !important;
+  }
+
+  #tshirt {
+    top: 26% !important;
+  }
+
+  #short {
+    width: 60px !important;
+    top: 47% !important;
+  }
+
+  #under-armour {
+    width: 90px !important;
+  }
 }
 
-/* Reuse splash-drop animation you have */
-@keyframes splash-drop {
-  0% {
-    transform: translate(0, 0);
-    opacity: 1;
+/* Medium (tablets) */
+@media (min-width: 477px) and (max-width: 768px) {
+  html {
+    font-size: 15px;
   }
-  100% {
-    transform: var(--move);
-    opacity: 0;
+
+  .parallax {
+    height: 230vh;
+  }
+
+  #gymshark-logo {
+    width: 100px;
+  }
+
+  #gymshark-text {
+    width: 120px;
+  }
+
+  #shark {
+    width: 200px;
+    left: 38%;
+  }
+
+  #dumbbell,
+  #tshirt,
+  #plate,
+  #short,
+  #kettlebell,
+  #skirt,
+  #nike,
+  #alo,
+  #adidas {
+    width: 80px !important;
+  }
+
+  #kettlebell {
+    width: 60px !important;
+  }
+
+  #short {
+    width: 100px !important;
+    top: 48.5%;
+    right: 7%;
+  }
+
+  #under-armour {
+    width: 120px !important;
+  }
+}
+
+/* Large (laptops) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+
+  .parallax {
+    height: 250vh;
+  }
+
+  #gymshark-logo {
+    width: 110px;
+  }
+
+  #gymshark-text {
+    width: 140px;
+  }
+
+  #shark {
+    width: 240px;
+  }
+  #short {
+    top: 48.5%;
+  }
+}
+
+/* Extra large (desktops) */
+@media (min-width: 1025px) and (max-width: 1699px) {
+  html {
+    font-size: 17px;
+  }
+
+  .parallax {
+    height: 270vh;
+  }
+
+  #gymshark-logo {
+    width: 180px;
+    top: 2%;
+    left: 5%;
+  }
+
+  #gymshark-text {
+    width: 240px;
+    top: 2.5%;
+    right: 6%;
+  }
+
+  #shark {
+    width: 400px;
+    top: 90px;
+    left: 40%;
+  }
+
+  #tshirt {
+    top: 28%;
+    width: 100px !important;
+  }
+
+  /* Competitor logos */
+  #nike {
+    width: 140px;
+    top: 40%;
+    left: 24%;
+  }
+
+  #alo {
+    width: 130px;
+    top: 40%;
+    right: 24%;
+  }
+
+  #under-armour {
+    width: 220px;
+    top: 50%;
+    left: 22%;
+  }
+
+  #adidas {
+    width: 150px;
+    top: 60%;
+    right: 24%;
+  }
+
+  /* Gym items */
+  #dumbbell,
+  #tshirt,
+  #plate,
+  #short,
+  #kettlebell,
+  #skirt {
+    width: 120px;
+  }
+
+  #kettlebell {
+    width: 90px;
+  }
+
+  #plate {
+    width: 130px;
+  }
+
+  #short {
+    width: 160px;
+  }
+
+  /* Optional: slightly increase splash droplet size */
+  .splash-droplet {
+    width: 12px;
+    height: 12px;
+  }
+
+  .blood-droplet {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Huge large (desktops) */
+@media (min-width: 1700px) {
+  html {
+    font-size: 17px;
+  }
+
+  .parallax {
+    height: 270vh;
+  }
+
+  #gymshark-logo {
+    width: 180px;
+    top: 2%;
+    left: 5%;
+  }
+
+  #gymshark-text {
+    width: 240px;
+    top: 2.5%;
+    right: 6%;
+  }
+
+  #shark {
+    width: 400px;
+    top: 90px;
+    left: 40%;
+  }
+
+  /* Competitor logos */
+  #nike {
+    width: 140px;
+    top: 30%;
+    left: 24%;
+  }
+
+  #alo {
+    width: 130px;
+    top: 40%;
+    right: 24%;
+  }
+
+  #under-armour {
+    width: 220px;
+    top: 50%;
+    left: 22%;
+  }
+
+  #adidas {
+    width: 150px;
+    top: 60%;
+    right: 24%;
+  }
+
+  /* Gym items */
+  #dumbbell,
+  #tshirt,
+  #plate,
+  #short,
+  #kettlebell,
+  #skirt {
+    width: 120px;
+  }
+
+  #kettlebell {
+    width: 90px;
+  }
+
+  #plate {
+    width: 130px;
+  }
+
+  #short {
+    width: 160px;
+  }
+
+  /* Optional: slightly increase splash droplet size */
+  .splash-droplet {
+    width: 12px;
+    height: 12px;
+  }
+
+  .blood-droplet {
+    width: 14px;
+    height: 14px;
   }
 }
